@@ -2,39 +2,2346 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#176b87">
 <link rel="manifest" href="manifest.json">
-
 <title>CLINI PET - Veterinary Clinic Manager</title>
 
 <style>
 :root{
-  --brand:#176b87;
-  --brand2:#0d5268;
-  --bg:#f3f8fa;
-  --card:#fff;
-  --text:#17232b;
-  --muted:#71808a;
-  --danger:#d9534f;
-  --success:#29935a;
-  --warning:#e7a82b;
-  --border:#e2eaee;
+ --brand:#176b87;
+ --brand2:#0d5268;
+ --bg:#f3f8fa;
+ --card:#fff;
+ --text:#17232b;
+ --muted:#71808a;
+ --danger:#c0392b;
+ --ok:#16834a;
+ --warning:#b77900;
+ --shadow:0 8px 24px rgba(20,60,75,.08);
+ --radius:18px
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,Tahoma,sans-serif;
-  padding-bottom:80px;
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font-family:Arial,Tahoma,sans-serif
 }
 
+button,input,select,textarea{font:inherit}
+button{cursor:pointer;border:0}
+
 header{
+ background:linear-gradient(135deg,var(--brand),var(--brand2));
+ color:#fff;
+ padding:24px 18px 28px;
+ border-radius:0 0 28px 28px
+}
+
+.brand{
+ font-size:28px;
+ font-weight:800;
+ letter-spacing:.5px
+}
+
+.subtitle{
+ margin-top:7px;
+ opacity:.9;
+ font-size:15px
+}
+
+main{
+ max-width:1100px;
+ margin:auto;
+ padding:18px 14px 100px
+}
+
+.topline{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:12px;
+ flex-wrap:wrap
+}
+
+h1{font-size:30px;margin:10px 0}
+h2{font-size:21px;margin:0 0 14px}
+
+.date{color:var(--muted)}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:14px
+}
+
+.card{
+ background:var(--card);
+ border-radius:var(--radius);
+ padding:18px;
+ box-shadow:var(--shadow)
+}
+
+.stat b{
+ display:block;
+ font-size:32px;
+ margin-top:8px
+}
+
+.stat span{color:var(--muted)}
+
+.actions{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:12px;
+ margin:16px 0
+}
+
+.action{
+ padding:16px;
+ border-radius:16px;
+ background:#fff;
+ box-shadow:var(--shadow);
+ font-weight:700;
+ color:var(--text)
+}
+
+.action:hover{transform:translateY(-1px)}
+
+.section{margin-top:18px}
+
+.list{
+ display:grid;
+ gap:10px
+}
+
+.item{
+ background:#fff;
+ border-radius:15px;
+ padding:14px;
+ box-shadow:var(--shadow);
+ display:flex;
+ justify-content:space-between;
+ gap:10px;
+ align-items:center
+}
+
+.item small{color:var(--muted)}
+
+.badge{
+ display:inline-block;
+ padding:5px 9px;
+ border-radius:999px;
+ background:#e8f4f7;
+ color:var(--brand2);
+ font-size:12px
+}
+
+.badge.danger{
+ background:#fdecea;
+ color:var(--danger)
+}
+
+.badge.ok{
+ background:#eaf7ef;
+ color:var(--ok)
+}
+
+nav{
+ position:fixed;
+ z-index:20;
+ bottom:0;
+ left:0;
+ right:0;
+ background:#fff;
+ border-top:1px solid #dce6ea;
+ display:flex;
+ justify-content:center;
+ gap:2px;
+ padding:8px 6px calc(8px + env(safe-area-inset-bottom))
+}
+
+nav button{
+ background:transparent;
+ padding:9px 12px;
+ border-radius:14px;
+ color:#394850;
+ font-weight:700;
+ min-width:80px
+}
+
+nav button.active{
+ background:#e7f4f7;
+ color:var(--brand)
+}
+
+.modal{
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.42);
+ display:none;
+ align-items:flex-end;
+ justify-content:center;
+ z-index:50
+}
+
+.modal.show{display:flex}
+
+.modalbox{
+ background:#fff;
+ width:min(760px,100%);
+ max-height:92vh;
+ overflow:auto;
+ border-radius:24px 24px 0 0;
+ padding:20px
+}
+
+.modalhead{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px
+}
+
+.close{
+ background:#eef3f5;
+ border-radius:50%;
+ width:38px;
+ height:38px
+}
+
+form{
+ display:grid;
+ gap:12px
+}
+
+.row{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px
+}
+
+label{
+ font-size:13px;
+ font-weight:700;
+ color:#42535c
+}
+
+input,select,textarea{
+ width:100%;
+ padding:12px;
+ border:1px solid #d6e1e5;
+ border-radius:12px;
+ background:#fff;
+ color:var(--text)
+}
+
+textarea{
+ min-height:100px;
+ resize:vertical
+}
+
+.primary{
+ background:var(--brand);
+ color:#fff;
+ padding:12px 16px;
+ border-radius:12px;
+ font-weight:700
+}
+
+.secondary{
+ background:#eef4f6;
+ color:var(--text);
+ padding:12px 16px;
+ border-radius:12px;
+ font-weight:700
+}
+
+.danger{
+ background:#fff0ee;
+ color:var(--danger);
+ padding:9px 12px;
+ border-radius:10px
+}
+
+.toolbar{
+ display:flex;
+ gap:10px;
+ flex-wrap:wrap;
+ margin-bottom:14px
+}
+
+.toolbar input{
+ flex:1;
+ min-width:200px
+}
+
+.empty{
+ text-align:center;
+ color:var(--muted);
+ padding:25px
+}
+
+.tablewrap{overflow:auto}
+
+.table{
+ width:100%;
+ border-collapse:collapse
+}
+
+.table th,.table td{
+ padding:11px;
+ border-bottom:1px solid #edf1f3;
+ text-align:right;
+ white-space:nowrap
+}
+
+.hidden{display:none!important}
+
+.toast{
+ position:fixed;
+ top:18px;
+ left:50%;
+ transform:translateX(-50%);
+ background:#17232b;
+ color:#fff;
+ padding:12px 18px;
+ border-radius:12px;
+ z-index:100;
+ display:none
+}
+
+.toast.show{display:block}
+
+@media(max-width:850px){
+ .grid{grid-template-columns:repeat(2,1fr)}
+ .actions{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:520px){
+ .grid{grid-template-columns:1fr 1fr}
+ .row{grid-template-columns:1fr}
+ .brand{font-size:25px}
+ .item{
+  align-items:flex-start;
+  flex-direction:column
+ }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">🐾 CLINI PET</div>
+  <div class="subtitle">
+    Veterinary Clinic Manager — إدارة العيادة البيطرية
+  </div>
+</header>
+
+<main>
+
+<div class="topline">
+
+<div>
+<h1 id="pageTitle">Dashboard</h1>
+<div class="date" id="today"></div>
+</div>
+
+<div class="toolbar">
+
+<button class="secondary" onclick="backupData()">
+⬇️ Backup
+</button>
+
+<button class="secondary"
+onclick="document.getElementById('restoreFile').click()">
+⬆️ Restore
+</button>
+
+<input
+id="restoreFile"
+type="file"
+accept=".json,application/json"
+class="hidden"
+onchange="restoreData(event)"
+>
+
+</div>
+</div>
+
+
+<section id="dashboard">
+
+<div class="grid">
+
+<div class="card stat">
+<span>إجمالي الحيوانات</span>
+<b id="petsCount">0</b>
+</div>
+
+<div class="card stat">
+<span>تطعيمات قريبة</span>
+<b id="dueCount">0</b>
+</div>
+
+<div class="card stat">
+<span>تطعيمات متأخرة</span>
+<b id="overdueCount">0</b>
+</div>
+
+<div class="card stat">
+<span>مواعيد قادمة</span>
+<b id="apptCount">0</b>
+</div>
+
+</div>
+
+
+<div class="actions">
+
+<button class="action" onclick="openPet()">
+➕ إضافة حيوان
+</button>
+
+<button class="action" onclick="openVaccine()">
+💉 تسجيل تطعيم
+</button>
+
+<button class="action" onclick="openAppt()">
+📅 موعد
+</button>
+
+<button class="action" onclick="openRecord()">
+🩺 سجل طبي
+</button>
+
+</div>
+
+
+<div class="section card">
+
+<h2>🔔 التذكيرات — 7 أيام</h2>
+
+<div id="reminders" class="list"></div>
+
+</div>
+
+
+<div class="section card">
+
+<h2>📅 مواعيد اليوم</h2>
+
+<div id="todayList" class="list"></div>
+
+</div>
+
+</section>
+
+
+
+<section id="pets" class="hidden">
+
+<div class="card">
+
+<div class="toolbar">
+
+<input
+id="petSearch"
+placeholder="🔎 بحث بالاسم أو المالك..."
+oninput="renderPets()"
+>
+
+<button class="primary" onclick="openPet()">
+➕ إضافة حيوان
+</button>
+
+</div>
+
+<div id="petsList" class="list"></div>
+
+</div>
+
+</section>
+
+
+
+<section id="vaccines" class="hidden">
+
+<div class="card">
+
+<div class="toolbar">
+
+<input
+id="vacSearch"
+placeholder="🔎 بحث في التطعيمات..."
+oninput="renderVaccines()"
+>
+
+<button class="primary" onclick="openVaccine()">
+💉 إضافة تطعيم
+</button>
+
+</div>
+
+<div id="vaccinesList" class="list"></div>
+
+</div>
+
+</section>
+
+
+
+<section id="visits" class="hidden">
+
+<div class="card">
+
+<div class="toolbar">
+
+<input
+id="apptSearch"
+placeholder="🔎 بحث في المواعيد..."
+oninput="renderAppts()"
+>
+
+<button class="primary" onclick="openAppt()">
+📅 إضافة موعد
+</button>
+
+</div>
+
+<div id="apptsList" class="list"></div>
+
+</div>
+
+</section>
+
+
+
+<section id="records" class="hidden">
+
+<div class="card">
+
+<div class="toolbar">
+
+<input
+id="recordSearch"
+placeholder="🔎 بحث في السجلات..."
+oninput="renderRecords()"
+>
+
+<button class="primary" onclick="openRecord()">
+🩺 إضافة سجل
+</button>
+
+</div>
+
+<div id="recordsList" class="list"></div>
+
+</div>
+
+</section>
+
+
+
+<section id="owners" class="hidden">
+
+<div class="card">
+
+<h2>👤 الملاك</h2>
+
+<div id="ownersList" class="list"></div>
+
+</div>
+
+</section>
+
+
+
+<section id="more" class="hidden">
+
+<div class="card">
+
+<h2>⚙️ أدوات وإعدادات</h2>
+
+<div class="actions">
+
+<button class="action" onclick="backupData()">
+💾 Backup البيانات
+</button>
+
+<button class="action"
+onclick="document.getElementById('restoreFile').click()">
+📥 Restore البيانات
+</button>
+
+<button class="action" onclick="printPage()">
+🖨️ طباعة
+</button>
+
+<button class="action" onclick="resetData()">
+🗑️ مسح كل البيانات
+</button>
+
+</div>
+
+<p style="color:var(--muted)">
+البيانات محفوظة محليًا على نفس المتصفح باستخدام LocalStorage.
+استخدم Backup بانتظام.
+</p>
+
+</div>
+
+</section>
+
+</main>
+
+
+
+<nav>
+
+<button
+data-page="dashboard"
+onclick="showPage('dashboard',this)">
+🏠<br>الرئيسية
+</button>
+
+<button
+data-page="pets"
+onclick="showPage('pets',this)">
+🐾<br>الحيوانات
+</button>
+
+<button
+data-page="vaccines"
+onclick="showPage('vaccines',this)">
+💉<br>التطعيمات
+</button>
+
+<button
+data-page="visits"
+onclick="showPage('visits',this)">
+📅<br>الزيارات
+</button>
+
+<button
+data-page="more"
+onclick="showPage('more',this)">
+☰<br>المزيد
+</button>
+
+</nav>
+
+
+
+<div
+id="modal"
+class="modal"
+onclick="if(event.target===this)closeModal()"
+>
+
+<div class="modalbox">
+
+<div class="modalhead">
+
+<h2 id="modalTitle">إضافة</h2>
+
+<button
+class="close"
+onclick="closeModal()">
+✕
+</button>
+
+</div>
+
+<div id="modalBody"></div>
+
+</div>
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+
+<script>
+
+const KEY="clini_pet_db_v3";
+
+let db=JSON.parse(
+ localStorage.getItem(KEY)||'null'
+)||{
+ pets:[],
+ vaccines:[],
+ appointments:[],
+ records:[]
+};
+
+
+function save(){
+
+ localStorage.setItem(
+  KEY,
+  JSON.stringify(db)
+ );
+
+ renderAll();
+}
+
+
+function uid(){
+
+ return Date.now().toString(36)
+ +
+ Math.random().toString(36).slice(2,7);
+
+}
+
+
+function esc(s){
+
+ return String(s??"").replace(
+  /[&<>"']/g,
+  m=>({
+   "&":"&amp;",
+   "<":"&lt;",
+   ">":"&gt;",
+   '"':"&quot;",
+   "'":"&#039;"
+  }[m])
+ );
+
+}
+
+
+function todayISO(){
+
+ return new Date()
+ .toISOString()
+ .slice(0,10);
+
+}
+
+
+function fmt(d){
+
+ if(!d)return"-";
+
+ try{
+
+  return new Date(
+   d+"T00:00:00"
+  ).toLocaleDateString("ar-EG");
+
+ }catch{
+
+  return d;
+
+ }
+
+}
+
+
+function daysFromToday(d){
+
+ return Math.ceil(
+  (
+   new Date(d+"T00:00:00")
+   -
+   new Date(todayISO()+"T00:00:00")
+  )/86400000
+ );
+
+}
+
+
+function petName(id){
+
+ return db.pets.find(
+  p=>p.id===id
+ )?.name||"غير معروف";
+
+}
+
+
+function toast(t){
+
+ const x=document.getElementById("toast");
+
+ x.textContent=t;
+
+ x.classList.add("show");
+
+ setTimeout(
+  ()=>x.classList.remove("show"),
+  2200
+ );
+
+}
+
+
+function showPage(id,btn){
+
+ document
+ .querySelectorAll("main>section")
+ .forEach(
+  s=>s.classList.add("hidden")
+ );
+
+ document
+ .getElementById(id)
+ .classList.remove("hidden");
+
+ document
+ .querySelectorAll("nav button")
+ .forEach(
+  b=>b.classList.remove("active")
+ );
+
+ if(btn)
+  btn.classList.add("active");
+
+ const titles={
+  dashboard:"Dashboard",
+  pets:"الحيوانات",
+  vaccines:"التطعيمات",
+  visits:"الزيارات",
+  records:"السجلات الطبية",
+  owners:"الملاك",
+  more:"المزيد"
+ };
+
+ document.getElementById("pageTitle")
+ .textContent=titles[id]||"CLINI PET";
+
+ renderAll();
+
+}
+
+
+function openModal(title,html){
+
+ document.getElementById("modalTitle")
+ .textContent=title;
+
+ document.getElementById("modalBody")
+ .innerHTML=html;
+
+ document.getElementById("modal")
+ .classList.add("show");
+
+}
+
+
+function closeModal(){
+
+ document.getElementById("modal")
+ .classList.remove("show");
+
+}
+
+
+function petOptions(){
+
+ return db.pets.map(
+  p=>`
+  <option value="${esc(p.id)}">
+  ${esc(p.name)} — ${esc(p.owner||"بدون مالك")}
+  </option>
+  `
+ ).join("");
+
+}
+
+
+
+function openPet(id){
+
+ const p=db.pets.find(
+  x=>x.id===id
+ )||{};
+
+ openModal(
+  id?"تعديل بيانات الحيوان":"إضافة حيوان",
+  `
+<form onsubmit="addPet(event,'${id||""}')">
+
+<div class="row">
+
+<div>
+<label>اسم الحيوان</label>
+<input
+id="pname"
+required
+value="${esc(p.name)}"
+>
+</div>
+
+<div>
+<label>النوع</label>
+
+<select id="pspecies">
+
+<option ${p.species==="Dog"?"selected":""}>
+Dog
+</option>
+
+<option ${p.species==="Cat"?"selected":""}>
+Cat
+</option>
+
+<option ${p.species==="Horse"?"selected":""}>
+Horse
+</option>
+
+<option ${p.species==="Rabbit"?"selected":""}>
+Rabbit
+</option>
+
+<option ${p.species==="Bird"?"selected":""}>
+Bird
+</option>
+
+<option ${p.species==="Other"?"selected":""}>
+Other
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="row">
+
+<div>
+<label>السلالة</label>
+<input
+id="pbreed"
+value="${esc(p.breed)}"
+>
+</div>
+
+<div>
+<label>النوع/الجنس</label>
+
+<select id="psex">
+
+<option ${p.sex==="Male"?"selected":""}>
+Male
+</option>
+
+<option ${p.sex==="Female"?"selected":""}>
+Female
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="row">
+
+<div>
+<label>الوزن kg</label>
+
+<input
+id="pweight"
+type="number"
+step="0.01"
+value="${esc(p.weight)}"
+>
+
+</div>
+
+<div>
+<label>تاريخ الميلاد</label>
+
+<input
+id="pdob"
+type="date"
+value="${esc(p.dob)}"
+>
+
+</div>
+
+</div>
+
+
+<div>
+<label>اسم المالك</label>
+<input
+id="powner"
+value="${esc(p.owner)}"
+>
+</div>
+
+
+<div>
+<label>هاتف المالك</label>
+<input
+id="pphone"
+value="${esc(p.phone)}"
+>
+</div>
+
+
+<div>
+<label>ملاحظات</label>
+
+<textarea id="pnotes">
+${esc(p.notes)}
+</textarea>
+
+</div>
+
+
+<button class="primary">
+💾 حفظ
+</button>
+
+</form>
+`
+ );
+
+}
+
+
+
+function addPet(e,id){
+
+ e.preventDefault();
+
+ let p=db.pets.find(
+  x=>x.id===id
+ );
+
+ if(!p){
+
+  p={id:uid()};
+  db.pets.push(p);
+
+ }
+
+ Object.assign(
+  p,
+  {
+   name:pname.value,
+   species:pspecies.value,
+   breed:pbreed.value,
+   sex:psex.value,
+   weight:pweight.value,
+   dob:pdob.value,
+   owner:powner.value,
+   phone:pphone.value,
+   notes:pnotes.value
+  }
+ );
+
+ save();
+
+ closeModal();
+
+ toast("تم حفظ الحيوان");
+
+}
+
+
+
+function deletePet(id){
+
+ if(
+  confirm(
+   "حذف الحيوان وكل سجلاته المرتبطة؟"
+  )
+ ){
+
+  db.pets=db.pets.filter(
+   p=>p.id!==id
+  );
+
+  db.vaccines=db.vaccines.filter(
+   v=>v.petId!==id
+  );
+
+  db.appointments=db.appointments.filter(
+   a=>a.petId!==id
+  );
+
+  db.records=db.records.filter(
+   r=>r.petId!==id
+  );
+
+  save();
+
+  toast("تم الحذف");
+
+ }
+
+}
+
+
+
+function openVaccine(id){
+
+ const v=db.vaccines.find(
+  x=>x.id===id
+ )||{};
+
+ openModal(
+  id?"تعديل التطعيم":"إضافة تطعيم",
+  `
+<form onsubmit="addVaccine(event,'${id||""}')">
+
+<div>
+<label>الحيوان</label>
+
+<select id="vpet" required>
+${petOptions()}
+</select>
+
+</div>
+
+
+<div class="row">
+
+<div>
+<label>نوع التطعيم</label>
+
+<input
+id="vname"
+required
+value="${esc(v.name)}"
+placeholder="Rabies / DHPP / FVRCP..."
+>
+
+</div>
+
+
+<div>
+<label>تاريخ التطعيم</label>
+
+<input
+id="vdate"
+type="date"
+required
+value="${esc(v.date||todayISO())}"
+>
+
+</div>
+
+</div>
+
+
+<div class="row">
+
+<div>
+<label>موعد الجرعة التالية</label>
+
+<input
+id="vnext"
+type="date"
+value="${esc(v.next)}"
+>
+
+</div>
+
+
+<div>
+<label>رقم الدفعة</label>
+
+<input
+id="vbatch"
+value="${esc(v.batch)}"
+>
+
+</div>
+
+</div>
+
+
+<div>
+
+<label>ملاحظات</label>
+
+<textarea id="vnotes">
+${esc(v.notes)}
+</textarea>
+
+</div>
+
+
+<button class="primary">
+💾 حفظ
+</button>
+
+</form>
+`
+ );
+
+ if(v.petId)
+  vpet.value=v.petId;
+
+}
+
+
+
+function addVaccine(e,id){
+
+ e.preventDefault();
+
+ let v=db.vaccines.find(
+  x=>x.id===id
+ );
+
+ if(!v){
+
+  v={id:uid()};
+  db.vaccines.push(v);
+
+ }
+
+ Object.assign(
+  v,
+  {
+   petId:vpet.value,
+   name:vname.value,
+   date:vdate.value,
+   next:vnext.value,
+   batch:vbatch.value,
+   notes:vnotes.value
+  }
+ );
+
+ save();
+
+ closeModal();
+
+ toast("تم حفظ التطعيم");
+
+}
+
+
+
+function deleteVaccine(id){
+
+ if(confirm("حذف التطعيم؟")){
+
+  db.vaccines=db.vaccines.filter(
+   v=>v.id!==id
+  );
+
+  save();
+
+ }
+
+}
+
+
+
+function openAppt(id){
+
+ const a=db.appointments.find(
+  x=>x.id===id
+ )||{};
+
+ openModal(
+  id?"تعديل الموعد":"إضافة موعد",
+  `
+<form onsubmit="addAppt(event,'${id||""}')">
+
+<div>
+
+<label>الحيوان</label>
+
+<select id="apet" required>
+${petOptions()}
+</select>
+
+</div>
+
+
+<div class="row">
+
+<div>
+
+<label>التاريخ</label>
+
+<input
+id="adate"
+type="date"
+required
+value="${esc(a.date||todayISO())}"
+>
+
+</div>
+
+
+<div>
+
+<label>الوقت</label>
+
+<input
+id="atime"
+type="time"
+value="${esc(a.time)}"
+>
+
+</div>
+
+</div>
+
+
+<div>
+
+<label>نوع الزيارة</label>
+
+<input
+id="atype"
+value="${esc(a.type)}"
+placeholder="كشف / متابعة / عملية / تطعيم"
+>
+
+</div>
+
+
+<div>
+
+<label>ملاحظات</label>
+
+<textarea id="anotes">
+${esc(a.notes)}
+</textarea>
+
+</div>
+
+
+<button class="primary">
+💾 حفظ
+</button>
+
+</form>
+`
+ );
+
+ if(a.petId)
+  apet.value=a.petId;
+
+}
+
+
+
+function addAppt(e,id){
+
+ e.preventDefault();
+
+ let a=db.appointments.find(
+  x=>x.id===id
+ );
+
+ if(!a){
+
+  a={id:uid()};
+  db.appointments.push(a);
+
+ }
+
+ Object.assign(
+  a,
+  {
+   petId:apet.value,
+   date:adate.value,
+   time:atime.value,
+   type:atype.value,
+   notes:anotes.value
+  }
+ );
+
+ save();
+
+ closeModal();
+
+ toast("تم حفظ الموعد");
+
+}
+
+
+
+function deleteAppt(id){
+
+ if(confirm("حذف الموعد؟")){
+
+  db.appointments=db.appointments.filter(
+   a=>a.id!==id
+  );
+
+  save();
+
+ }
+
+}
+
+
+
+function openRecord(id){
+
+ const r=db.records.find(
+  x=>x.id===id
+ )||{};
+
+ openModal(
+  id?"تعديل السجل":"إضافة سجل طبي",
+  `
+<form onsubmit="addRecord(event,'${id||""}')">
+
+<div>
+
+<label>الحيوان</label>
+
+<select id="rpet" required>
+${petOptions()}
+</select>
+
+</div>
+
+
+<div class="row">
+
+<div>
+
+<label>التاريخ</label>
+
+<input
+id="rdate"
+type="date"
+value="${esc(r.date||todayISO())}"
+required
+>
+
+</div>
+
+
+<div>
+
+<label>نوع الزيارة</label>
+
+<input
+id="rtype"
+value="${esc(r.type)}"
+>
+
+</div>
+
+</div>
+
+
+<div>
+
+<label>الشكوى الرئيسية</label>
+
+<textarea id="rcomplaint">
+${esc(r.complaint)}
+</textarea>
+
+</div>
+
+
+<div>
+
+<label>الفحص / التشخيص</label>
+
+<textarea id="rdiagnosis">
+${esc(r.diagnosis)}
+</textarea>
+
+</div>
+
+
+<div>
+
+<label>الخطة العلاجية / الأدوية</label>
+
+<textarea id="rtreatment">
+${esc(r.treatment)}
+</textarea>
+
+</div>
+
+
+<div>
+
+<label>ملاحظات الطبيب</label>
+
+<textarea id="rnotes">
+${esc(r.notes)}
+</textarea>
+
+</div>
+
+
+<button class="primary">
+💾 حفظ السجل
+</button>
+
+</form>
+`
+ );
+
+ if(r.petId)
+  rpet.value=r.petId;
+
+}
+
+
+
+function addRecord(e,id){
+
+ e.preventDefault();
+
+ let r=db.records.find(
+  x=>x.id===id
+ );
+
+ if(!r){
+
+  r={id:uid()};
+  db.records.push(r);
+
+ }
+
+ Object.assign(
+  r,
+  {
+   petId:rpet.value,
+   date:rdate.value,
+   type:rtype.value,
+   complaint:rcomplaint.value,
+   diagnosis:rdiagnosis.value,
+   treatment:rtreatment.value,
+   notes:rnotes.value
+  }
+ );
+
+ save();
+
+ closeModal();
+
+ toast("تم حفظ السجل الطبي");
+
+}
+
+
+
+function deleteRecord(id){
+
+ if(confirm("حذف السجل الطبي؟")){
+
+  db.records=db.records.filter(
+   r=>r.id!==id
+  );
+
+  save();
+
+ }
+
+}
+
+
+
+function renderDashboard(){
+
+ document.getElementById("today")
+ .textContent=
+ new Date().toLocaleDateString(
+  "ar-EG",
+  {
+   weekday:"long",
+   year:"numeric",
+   month:"long",
+   day:"numeric"
+  }
+ );
+
+ petsCount.textContent=db.pets.length;
+
+
+ const due=db.vaccines.filter(
+  v=>
+   v.next &&
+   daysFromToday(v.next)>=0 &&
+   daysFromToday(v.next)<=7
+ ).length;
+
+
+ const overdue=db.vaccines.filter(
+  v=>
+   v.next &&
+   daysFromToday(v.next)<0
+ ).length;
+
+
+ dueCount.textContent=due;
+
+ overdueCount.textContent=overdue;
+
+
+ apptCount.textContent=
+ db.appointments.filter(
+  a=>a.date>=todayISO()
+ ).length;
+
+
+ const rem=db.vaccines
+ .filter(
+  v=>
+   v.next &&
+   daysFromToday(v.next)>=0 &&
+   daysFromToday(v.next)<=7
+ )
+ .sort(
+  (a,b)=>a.next.localeCompare(b.next)
+ );
+
+
+ reminders.innerHTML=
+ rem.length
+ ?
+ rem.map(
+  v=>`
+<div class="item">
+
+<div>
+
+<b>${esc(petName(v.petId))}</b>
+
+<br>
+
+<small>
+${esc(v.name)} — ${fmt(v.next)}
+</small>
+
+</div>
+
+<span class="badge">
+
+${
+ daysFromToday(v.next)===0
+ ?"اليوم"
+ :"بعد "+daysFromToday(v.next)+" يوم"
+}
+
+</span>
+
+</div>
+`
+ ).join("")
+ :
+ `<div class="empty">
+ لا توجد تذكيرات قريبة.
+ </div>`;
+
+
+ const ap=db.appointments
+ .filter(
+  a=>a.date===todayISO()
+ )
+ .sort(
+  (a,b)=>
+   (a.time||"")
+   .localeCompare(b.time||"")
+ );
+
+
+ todayList.innerHTML=
+ ap.length
+ ?
+ ap.map(
+  a=>`
+<div class="item">
+
+<div>
+
+<b>${esc(petName(a.petId))}</b>
+
+<br>
+
+<small>
+${esc(a.type||"زيارة")} — ${esc(a.time||"")}
+</small>
+
+</div>
+
+<button
+class="secondary"
+onclick="openAppt('${a.id}')">
+تعديل
+</button>
+
+</div>
+`
+ ).join("")
+ :
+ `<div class="empty">
+ لا توجد مواعيد اليوم.
+ </div>`;
+
+}
+
+
+
+function renderPets(){
+
+ const q=
+ (petSearch?.value||"")
+ .toLowerCase();
+
+
+ const arr=db.pets.filter(
+  p=>
+  (
+   p.name+" "+
+   p.owner+" "+
+   p.phone+" "+
+   p.breed
+  )
+  .toLowerCase()
+  .includes(q)
+ );
+
+
+ petsList.innerHTML=
+ arr.length
+ ?
+ arr.map(
+  p=>`
+<div class="item">
+
+<div>
+
+<b>
+🐾 ${esc(p.name)}
+</b>
+
+<span class="badge">
+${esc(p.species)}
+</span>
+
+<br>
+
+<small>
+
+${esc(p.breed||"")}
+
+${p.weight
+ ?" • "+esc(p.weight)+" kg"
+ :""}
+
+ • المالك:
+${esc(p.owner||"-")}
+
+${p.phone
+ ?" • "+esc(p.phone)
+ :""}
+
+</small>
+
+</div>
+
+
+<div>
+
+<button
+class="secondary"
+onclick="openPet('${p.id}')">
+تعديل
+</button>
+
+<button
+class="danger"
+onclick="deletePet('${p.id}')">
+حذف
+</button>
+
+</div>
+
+</div>
+`
+ ).join("")
+ :
+ `<div class="empty">
+ لا توجد بيانات.
+ </div>`;
+
+}
+
+
+
+function renderVaccines(){
+
+ const q=
+ (vacSearch?.value||"")
+ .toLowerCase();
+
+
+ const arr=db.vaccines
+ .filter(
+  v=>
+  (
+   petName(v.petId)+" "+
+   v.name+" "+
+   v.batch
+  )
+  .toLowerCase()
+  .includes(q)
+ )
+ .sort(
+  (a,b)=>
+   (a.next||"9999")
+   .localeCompare(b.next||"9999")
+ );
+
+
+ vaccinesList.innerHTML=
+ arr.length
+ ?
+ arr.map(
+  v=>{
+
+   let d=
+    v.next
+    ?daysFromToday(v.next)
+    :999;
+
+   let cls=
+    d<0
+    ?"danger"
+    :d<=7
+    ?"ok"
+    :"";
+
+
+   return `
+<div class="item">
+
+<div>
+
+<b>
+💉 ${esc(v.name)}
+</b>
+
+—
+${esc(petName(v.petId))}
+
+<br>
+
+<small>
+
+تم:
+${fmt(v.date)}
+
+•
+
+التالي:
+${fmt(v.next)}
+
+${
+ v.batch
+ ?"• Batch "+esc(v.batch)
+ :""
+}
+
+</small>
+
+</div>
+
+
+<div>
+
+<span class="badge ${cls}">
+
+${
+ v.next
+ ?
+ (
+  d<0
+  ?"متأخر"
+  :d===0
+  ?"اليوم"
+  :"بعد "+d+" يوم"
+ )
+ :
+ "بدون موعد"
+}
+
+</span>
+
+
+<button
+class="secondary"
+onclick="openVaccine('${v.id}')">
+تعديل
+</button>
+
+
+<button
+class="danger"
+onclick="deleteVaccine('${v.id}')">
+حذف
+</button>
+
+</div>
+
+</div>
+`;
+
+  }
+ ).join("")
+ :
+ `<div class="empty">
+ لا توجد تطعيمات.
+ </div>`;
+
+}
+
+
+
+function renderAppts(){
+
+ const q=
+ (apptSearch?.value||"")
+ .toLowerCase();
+
+
+ const arr=db.appointments
+ .filter(
+  a=>
+  (
+   petName(a.petId)+" "+
+   a.type+" "+
+   a.notes
+  )
+  .toLowerCase()
+  .includes(q)
+ )
+ .sort(
+  (a,b)=>
+   (a.date+a.time)
+   .localeCompare(b.date+b.time)
+ );
+
+
+ apptsList.innerHTML=
+ arr.length
+ ?
+ arr.map(
+  a=>`
+<div class="item">
+
+<div>
+
+<b>
+📅 ${esc(petName(a.petId))}
+</b>
+
+<span class="badge">
+${esc(a.type||"زيارة")}
+</span>
+
+<br>
+
+<small>
+
+${fmt(a.date)}
+—
+${esc(a.time||"")}
+
+${
+ a.notes
+ ?" • "+esc(a.notes)
+ :""
+}
+
+</small>
+
+</div>
+
+
+<div>
+
+<button
+class="secondary"
+onclick="openAppt('${a.id}')">
+تعديل
+</button>
+
+<button
+class="danger"
+onclick="deleteAppt('${a.id}')">
+حذف
+</button>
+
+</div>
+
+</div>
+`
+ ).join("")
+ :
+ `<div class="empty">
+ لا توجد مواعيد.
+ </div>`;
+
+}
+
+
+
+function renderRecords(){
+
+ const q=
+ (recordSearch?.value||"")
+ .toLowerCase();
+
+
+ const arr=db.records
+ .filter(
+  r=>
+  (
+   petName(r.petId)+" "+
+   r.type+" "+
+   r.complaint+" "+
+   r.diagnosis+" "+
+   r.treatment
+  )
+  .toLowerCase()
+  .includes(q)
+ )
+ .sort(
+  (a,b)=>
+   b.date.localeCompare(a.date)
+ );
+
+
+ recordsList.innerHTML=
+ arr.length
+ ?
+ arr.map(
+  r=>`
+<div class="item">
+
+<div>
+
+<b>
+🩺 ${esc(petName(r.petId))}
+</b>
+
+<span class="badge">
+${esc(r.type||"كشف")}
+</span>
+
+<br>
+
+<small>
+
+${fmt(r.date)}
+
+•
+
+${esc(
+ r.diagnosis||
+ r.complaint||
+ "بدون تشخيص"
+)}
+
+</small>
+
+${
+ r.treatment
+ ?
+ `<br><small>
+ الخطة: ${esc(r.treatment)}
+ </small>`
+ :
+ ""
+}
+
+</div>
+
+
+<div>
+
+<button
+class="secondary"
+onclick="openRecord('${r.id}')">
+تعديل
+</button>
+
+<button
+class="danger"
+onclick="deleteRecord('${r.id}')">
+حذف
+</button>
+
+</div>
+
+</div>
+`
+ ).join("")
+ :
+ `<div class="empty">
+ لا توجد سجلات طبية.
+ </div>`;
+
+}
+
+
+
+function renderOwners(){
+
+ const map={};
+
+
+ db.pets.forEach(
+  p=>{
+
+   let k=
+    p.owner||
+    "بدون اسم";
+
+
+   if(!map[k])
+    map[k]={
+     phone:p.phone||"",
+     pets:[]
+    };
+
+
+   map[k].pets.push(
+    p.name
+   );
+
+  }
+ );
+
+
+ const arr=
+ Object.entries(map);
+
+
+ ownersList.innerHTML=
+ arr.length
+ ?
+ arr.map(
+  ([n,x])=>`
+<div class="item">
+
+<div>
+
+<b>
+👤 ${esc(n)}
+</b>
+
+<br>
+
+<small>
+
+${esc(x.phone)}
+
+•
+
+${x.pets
+ .map(esc)
+ .join("، ")}
+
+</small>
+
+</div>
+
+<span class="badge">
+${x.pets.length} حيوان
+</span>
+
+</div>
+`
+ ).join("")
+ :
+ `<div class="empty">
+ لا توجد بيانات ملاك.
+ </div>`;
+
+}
+
+
+
+function renderAll(){
+
+ renderDashboard();
+ renderPets();
+ renderVaccines();
+ renderAppts();
+ renderRecords();
+ renderOwners();
+
+}
+
+
+
+function backupData(){
+
+ const blob=
+ new Blob(
+  [JSON.stringify(db,null,2)],
+  {type:"application/json"}
+ );
+
+
+ const a=
+ document.createElement("a");
+
+
+ a.href=
+ URL.createObjectURL(blob);
+
+
+ a.download=
+ "clini-pet-backup-"+
+ todayISO()+
+ ".json";
+
+
+ a.click();
+
+
+ URL.revokeObjectURL(
+  a.href
+ );
+
+
+ toast(
+  "تم تجهيز ملف النسخة الاحتياطية"
+ );
+
+}
+
+
+
+function restoreData(e){
+
+ const f=
+ e.target.files[0];
+
+ if(!f)return;
+
+
+ const r=
+ new FileReader();
+
+
+ r.onload=()=>{
+
+  try{
+
+   const x=
+   JSON.parse(r.result);
+
+
+   if(
+    !x.pets||
+    !x.vaccines||
+    !x.appointments||
+    !x.records
+   )
+   throw 0;
+
+
+   if(
+    confirm(
+     "استبدال البيانات الحالية بالنسخة الاحتياطية؟"
+    )
+   ){
+
+    db=x;
+
+    save();
+
+    toast(
+     "تم استرجاع البيانات"
+    );
+
+   }
+
+  }catch{
+
+   alert(
+    "ملف Backup غير صالح"
+   );
+
+  }
+
+ };
+
+
+ r.readAsText(f);
+
+ e.target.value="";
+
+}
+
+
+
+function resetData(){
+
+ if(
+  confirm(
+   "تحذير: سيتم حذف كل بيانات العيادة من هذا المتصفح. هل أنت متأكد؟"
+  )
+ ){
+
+  localStorage.removeItem(KEY);
+
+  db={
+   pets:[],
+   vaccines:[],
+   appointments:[],
+   records:[]
+  };
+
+  renderAll();
+
+  toast(
+   "تم مسح البيانات"
+  );
+
+ }
+
+}
+
+
+
+function printPage(){
+
+ window.print();
+
+}
+
+
+renderAll();
+
+showPage(
+ "dashboard",
+ document.querySelector(
+  'nav button[data-page="dashboard"]'
+ )
+);
+
+</script>
+
+</body>
+</html>header{
   background:linear-gradient(135deg,var(--brand),var(--brand2));
   color:white;
   padding:24px 20px 28px;
