@@ -1,0 +1,11 @@
+{
+  "name": "CLINI PET",
+  "short_name": "CLINI PET",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f8fa",
+  "theme_color": "#176b87",
+  "description": "Veterinary Clinic Manager"
+}
