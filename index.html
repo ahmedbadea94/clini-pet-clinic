@@ -127,4 +127,11 @@ function resetData(){if(confirm('Delete all local CLINI PET data?')){localStorag
 function renderAll(){renderDashboard();renderPets(document.querySelector('#pets input')?.value||'');renderVaccines();renderAppts();renderOwners();renderRecords()}
 renderAll();
 </script>
+  <script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js");
+  });
+}
+  </script>
 </body></html>
