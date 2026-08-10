@@ -1,40 +1,1254 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#176b87">
-  <link rel="manifest" href="manifest.json">
-<title>CLINI PET</title>
+<link rel="manifest" href="manifest.json">
+
+<title>CLINI PET - Veterinary Clinic Manager</title>
+
 <style>
-:root{--brand:#176b87;--brand2:#0d5268;--bg:#f4f8fa;--card:#fff;--text:#17252d;--muted:#71818a;--danger:#c0392b;--warn:#c88912;--ok:#27824a}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
-header{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;padding:22px 18px 18px;border-radius:0 0 24px 24px}
-.brand{font-size:27px;font-weight:800;letter-spacing:1px}.subtitle{opacity:.85;margin-top:4px;font-size:13px}
-main{max-width:900px;margin:auto;padding:16px 16px 88px}.screen{display:none}.screen.active{display:block}
-h2{font-size:22px;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.card{background:var(--card);border-radius:16px;padding:16px;box-shadow:0 3px 12px #102b3b12}
-.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.metric b{font-size:27px;display:block;margin-top:5px}.metric span{color:var(--muted);font-size:12px}
-.quick{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0}.quick button,.nav button{border:0;border-radius:14px;padding:14px;background:#fff;box-shadow:0 2px 8px #102b3b12;font-weight:700;color:var(--text)}
-button{cursor:pointer}.primary{background:var(--brand)!important;color:white!important}
-form{background:#fff;padding:16px;border-radius:16px;box-shadow:0 2px 10px #102b3b0e}.field{margin-bottom:10px}label{font-size:12px;font-weight:700;color:#42545e}input,select,textarea{width:100%;padding:11px;margin-top:5px;border:1px solid #d5e0e5;border-radius:9px;background:#fff}textarea{min-height:80px}
-.list{display:grid;gap:10px;margin-top:12px}.row{background:#fff;border-radius:14px;padding:13px;box-shadow:0 2px 8px #102b3b0c;display:flex;justify-content:space-between;gap:10px;align-items:center}
-.badge{font-size:11px;padding:5px 8px;border-radius:20px;background:#e7f3f6}.badge.warn{background:#fff1c7;color:#795b00}.badge.danger{background:#ffe0dc;color:#9c2419}.badge.ok{background:#def3e5;color:#196b39}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #dde6ea;display:grid;grid-template-columns:repeat(5,1fr);padding:7px 5px calc(7px + env(safe-area-inset-bottom));z-index:10}.nav button{box-shadow:none;background:transparent;padding:8px 3px;font-size:10px}.nav button.active{color:var(--brand);background:#e9f5f8}
-.topline{display:flex;justify-content:space-between;align-items:center}.empty{text-align:center;color:var(--muted);padding:20px}.small{font-size:12px;color:var(--muted)}.danger{color:var(--danger)}.warn{color:var(--warn)}.ok{color:var(--ok)}
-@media(min-width:650px){.cards{grid-template-columns:repeat(4,1fr)}.quick{grid-template-columns:repeat(4,1fr)}.grid{grid-template-columns:repeat(3,1fr)}}
+:root{
+  --brand:#176b87;
+  --brand2:#0d5268;
+  --bg:#f3f8fa;
+  --card:#fff;
+  --text:#17232b;
+  --muted:#71808a;
+  --danger:#d9534f;
+  --success:#29935a;
+  --warning:#e7a82b;
+  --border:#e2eaee;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Tahoma,sans-serif;
+  padding-bottom:80px;
+}
+
+header{
+  background:linear-gradient(135deg,var(--brand),var(--brand2));
+  color:white;
+  padding:24px 20px 28px;
+  border-radius:0 0 32px 32px;
+}
+
+.brand{
+  font-size:29px;
+  font-weight:800;
+  letter-spacing:.5px;
+}
+
+.subtitle{
+  margin-top:7px;
+  font-size:17px;
+  opacity:.9;
+}
+
+main{
+  max-width:950px;
+  margin:auto;
+  padding:18px;
+}
+
+h1{
+  font-size:28px;
+  margin:10px 0 20px;
+}
+
+h2{
+  font-size:22px;
+  margin:18px 0 12px;
+}
+
+h3{
+  margin:0 0 8px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.card{
+  background:var(--card);
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,.05);
+  border:1px solid var(--border);
+}
+
+.stat{
+  min-height:145px;
+}
+
+.stat-title{
+  color:var(--muted);
+  font-size:16px;
+}
+
+.stat-number{
+  font-size:40px;
+  font-weight:800;
+  margin-top:15px;
+}
+
+.quick{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  margin-top:14px;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+  font:inherit;
+}
+
+.primary{
+  background:var(--brand);
+  color:white;
+}
+
+.quick button{
+  padding:17px;
+  border-radius:18px;
+  background:white;
+  box-shadow:0 4px 16px rgba(0,0,0,.05);
+  font-weight:700;
+  font-size:17px;
+}
+
+.quick button:hover{
+  background:#eef7fa;
+}
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
+
+.form{
+  background:white;
+  padding:18px;
+  border-radius:20px;
+  border:1px solid var(--border);
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+label{
+  display:block;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:13px;
+  border:1px solid #d6e0e5;
+  border-radius:12px;
+  font:inherit;
+  background:#fff;
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+.form-actions{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:12px 18px;
+  border-radius:12px;
+  font-weight:700;
+}
+
+.btn-primary{
+  background:var(--brand);
+  color:white;
+}
+
+.btn-danger{
+  background:var(--danger);
+  color:white;
+}
+
+.btn-success{
+  background:var(--success);
+  color:white;
+}
+
+.btn-light{
+  background:#edf4f6;
+  color:var(--text);
+}
+
+.list{
+  display:grid;
+  gap:12px;
+  margin-top:15px;
+}
+
+.item{
+  background:white;
+  border-radius:17px;
+  padding:16px;
+  border:1px solid var(--border);
+}
+
+.item-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  background:#eaf5f8;
+  color:var(--brand);
+  font-size:12px;
+  font-weight:700;
+}
+
+.meta{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.8;
+  margin-top:7px;
+}
+
+.actions{
+  display:flex;
+  gap:7px;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
+
+.small{
+  padding:8px 12px;
+  border-radius:9px;
+  font-size:13px;
+}
+
+.search{
+  margin-bottom:12px;
+}
+
+.empty{
+  text-align:center;
+  padding:35px 15px;
+  color:var(--muted);
+  background:white;
+  border-radius:18px;
+}
+
+.reminder{
+  background:white;
+  border-radius:20px;
+  padding:20px;
+  margin-top:15px;
+  border:1px solid var(--border);
+}
+
+.reminder-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  border-top:1px solid var(--border);
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  padding:8px 5px;
+  z-index:100;
+}
+
+nav button{
+  background:white;
+  color:#53616a;
+  padding:8px 3px;
+  font-size:12px;
+  font-weight:700;
+  border-radius:13px;
+}
+
+nav button.active{
+  background:#e8f5f8;
+  color:var(--brand);
+}
+
+nav .icon{
+  display:block;
+  font-size:21px;
+  margin-bottom:3px;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:200;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  background:white;
+  width:min(600px,100%);
+  max-height:90vh;
+  overflow:auto;
+  border-radius:22px;
+  padding:20px;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.close{
+  background:#edf1f3;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  font-size:20px;
+}
+
+.toast{
+  position:fixed;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#17232b;
+  color:white;
+  padding:12px 20px;
+  border-radius:30px;
+  z-index:500;
+  display:none;
+}
+
+.toast.show{
+  display:block;
+}
+
+@media(max-width:650px){
+  .grid,
+  .form-grid,
+  .quick{
+    grid-template-columns:1fr;
+  }
+
+  .stat{
+    min-height:120px;
+  }
+
+  .stat-number{
+    font-size:34px;
+  }
+
+  header{
+    padding:20px 16px 25px;
+  }
+
+  main{
+    padding:14px;
+  }
+}
 </style>
 </head>
+
 <body>
-<header><div class="brand">🐾 CLINI PET</div><div class="subtitle">Veterinary Clinic Manager</div></header>
+
+<header>
+  <div class="brand">🐾 CLINI PET</div>
+  <div class="subtitle">Veterinary Clinic Manager</div>
+</header>
+
 <main>
-<section id="dashboard" class="screen active">
-<div class="topline"><h2>Dashboard</h2><span class="small" id="today"></span></div>
-<div class="cards">
-<div class="card metric"><span>Total Pets</span><b id="petsCount">0</b></div>
-<div class="card metric"><span>Due Soon</span><b id="dueCount">0</b></div>
-<div class="card metric"><span>Overdue</span><b id="overdueCount">0</b></div>
-<div class="card metric"><span>Appointments</span><b id="apptCount">0</b></div>
+
+<!-- ================= DASHBOARD ================= -->
+
+<section id="home" class="section active">
+
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <h1>Dashboard</h1>
+    <span id="today" style="color:var(--muted)"></span>
+  </div>
+
+  <div class="grid">
+
+    <div class="card stat">
+      <div class="stat-title">Total Pets</div>
+      <div class="stat-number" id="petsCount">0</div>
+    </div>
+
+    <div class="card stat">
+      <div class="stat-title">Due Soon</div>
+      <div class="stat-number" id="dueCount">0</div>
+    </div>
+
+    <div class="card stat">
+      <div class="stat-title">Overdue</div>
+      <div class="stat-number" id="overdueCount">0</div>
+    </div>
+
+    <div class="card stat">
+      <div class="stat-title">Appointments</div>
+      <div class="stat-number" id="apptCount">0</div>
+    </div>
+
+  </div>
+
+  <div class="quick">
+
+    <button onclick="openModal('petModal')">
+      ➕ Add Pet
+    </button>
+
+    <button onclick="openModal('vaccineModal')">
+      💉 Vaccine
+    </button>
+
+    <button onclick="openModal('apptModal')">
+      📅 Appointment
+    </button>
+
+    <button onclick="openModal('recordModal')">
+      🩺 Medical Record
+    </button>
+
+  </div>
+
+  <div class="reminder">
+
+    <div class="reminder-title">
+      <h2 style="margin:0">🔔 Reminders</h2>
+      <span style="color:var(--muted)">Next 7 days</span>
+    </div>
+
+    <div id="reminders">
+      No vaccination reminders.
+    </div>
+
+  </div>
+
+  <div class="reminder">
+
+    <h2>📅 Today's Appointments</h2>
+
+    <div id="todayList">
+      No appointments today.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= PETS ================= -->
+
+<section id="pets" class="section">
+
+  <h1>🐶🐱 Pets</h1>
+
+  <button class="btn btn-primary" onclick="openModal('petModal')">
+    ➕ Add Pet
+  </button>
+
+  <div style="margin-top:15px">
+    <input
+      class="search"
+      id="petSearch"
+      placeholder="🔎 Search pet or owner..."
+      oninput="renderPets()"
+    >
+  </div>
+
+  <div id="petsList" class="list"></div>
+
+</section>
+
+
+<!-- ================= VACCINES ================= -->
+
+<section id="vaccines" class="section">
+
+  <h1>💉 Vaccines</h1>
+
+  <button class="btn btn-primary" onclick="openModal('vaccineModal')">
+    ➕ Add Vaccine
+  </button>
+
+  <div id="vaccinesList" class="list"></div>
+
+</section>
+
+
+<!-- ================= VISITS ================= -->
+
+<section id="visits" class="section">
+
+  <h1>📅 Visits & Appointments</h1>
+
+  <button class="btn btn-primary" onclick="openModal('apptModal')">
+    ➕ Add Appointment
+  </button>
+
+  <div id="appointmentsList" class="list"></div>
+
+</section>
+
+
+<!-- ================= MORE ================= -->
+
+<section id="more" class="section">
+
+  <h1>☰ More</h1>
+
+  <div class="list">
+
+    <div class="card">
+      <h3>👥 Owners</h3>
+      <p class="meta">
+        قائمة أصحاب الحيوانات المسجلين في العيادة.
+      </p>
+      <button class="btn btn-primary" onclick="showOwners()">
+        عرض المالكين
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>🩺 Medical Records</h3>
+      <p class="meta">
+        جميع السجلات الطبية والتشخيصات.
+      </p>
+      <button class="btn btn-primary" onclick="showRecords()">
+        عرض السجلات
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>💾 Backup</h3>
+      <p class="meta">
+        احفظ نسخة من بيانات العيادة على جهازك.
+      </p>
+      <button class="btn btn-success" onclick="backup()">
+        ⬇️ Backup Data
+      </button>
+    </div>
+
+    <div class="card">
+      <h3>♻️ Restore</h3>
+      <p class="meta">
+        استرجاع بيانات سابقة من ملف Backup.
+      </p>
+
+      <input
+        type="file"
+        id="restoreFile"
+        accept=".json"
+        onchange="restoreData(event)"
+      >
+    </div>
+
+    <div class="card">
+      <h3>⚠️ Reset Data</h3>
+      <p class="meta">
+        حذف جميع البيانات المخزنة من الجهاز.
+      </p>
+
+      <button class="btn btn-danger" onclick="resetData()">
+        Delete All Data
+      </button>
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<!-- ================= BOTTOM NAV ================= -->
+
+<nav>
+
+  <button class="active" onclick="go('home',this)">
+    <span class="icon">🏠</span>
+    Home
+  </button>
+
+  <button onclick="go('pets',this)">
+    <span class="icon">🐾</span>
+    Pets
+  </button>
+
+  <button onclick="go('vaccines',this)">
+    <span class="icon">💉</span>
+    Vaccines
+  </button>
+
+  <button onclick="go('visits',this)">
+    <span class="icon">📅</span>
+    Visits
+  </button>
+
+  <button onclick="go('more',this)">
+    <span class="icon">☰</span>
+    More
+  </button>
+
+</nav>
+
+
+<!-- ================= PET MODAL ================= -->
+
+<div class="modal" id="petModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2>Add Pet</h2>
+      <button class="close" onclick="closeModal('petModal')">×</button>
+    </div>
+
+    <form onsubmit="addPet(event)">
+
+      <div class="form-grid">
+
+        <div>
+          <label>Pet Name</label>
+          <input id="petName" required>
+        </div>
+
+        <div>
+          <label>Species</label>
+          <select id="petSpecies">
+            <option>Dog</option>
+            <option>Cat</option>
+            <option>Rabbit</option>
+            <option>Bird</option>
+            <option>Turtle</option>
+            <option>Horse</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Breed</label>
+          <input id="petBreed">
+        </div>
+
+        <div>
+          <label>Sex</label>
+          <select id="petSex">
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Age</label>
+          <input id="petAge" placeholder="مثال: 2 years">
+        </div>
+
+        <div>
+          <label>Weight (kg)</label>
+          <input id="petWeight" type="number" step="0.01">
+        </div>
+
+        <div>
+          <label>Owner Name</label>
+          <input id="ownerName" required>
+        </div>
+
+        <div>
+          <label>Phone</label>
+          <input id="ownerPhone" type="tel">
+        </div>
+
+        <div class="full">
+          <label>Notes</label>
+          <textarea id="petNotes"></textarea>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+
+        <button class="btn btn-primary" type="submit">
+          Save Pet
+        </button>
+
+        <button
+          class="btn btn-light"
+          type="button"
+          onclick="closeModal('petModal')"
+        >
+          Cancel
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- ================= VACCINE MODAL ================= -->
+
+<div class="modal" id="vaccineModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2>💉 Add Vaccine</h2>
+      <button class="close" onclick="closeModal('vaccineModal')">×</button>
+    </div>
+
+    <form onsubmit="addVaccine(event)">
+
+      <div class="form-grid">
+
+        <div>
+          <label>Pet</label>
+          <select id="vaccinePet" required></select>
+        </div>
+
+        <div>
+          <label>Vaccine</label>
+          <input id="vaccineName" required placeholder="Rabies / DHPP...">
+        </div>
+
+        <div>
+          <label>Date</label>
+          <input id="vaccineDate" type="date" required>
+        </div>
+
+        <div>
+          <label>Next Due Date</label>
+          <input id="vaccineNext" type="date">
+        </div>
+
+        <div class="full">
+          <label>Notes</label>
+          <textarea id="vaccineNotes"></textarea>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+
+        <button class="btn btn-primary" type="submit">
+          Save Vaccine
+        </button>
+
+        <button
+          class="btn btn-light"
+          type="button"
+          onclick="closeModal('vaccineModal')"
+        >
+          Cancel
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- ================= APPOINTMENT MODAL ================= -->
+
+<div class="modal" id="apptModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2>📅 Appointment</h2>
+      <button class="close" onclick="closeModal('apptModal')">×</button>
+    </div>
+
+    <form onsubmit="addAppt(event)">
+
+      <div class="form-grid">
+
+        <div>
+          <label>Pet</label>
+          <select id="apptPet" required></select>
+        </div>
+
+        <div>
+          <label>Date</label>
+          <input id="apptDate" type="date" required>
+        </div>
+
+        <div>
+          <label>Time</label>
+          <input id="apptTime" type="time">
+        </div>
+
+        <div>
+          <label>Type</label>
+          <select id="apptType">
+            <option>Examination</option>
+            <option>Vaccination</option>
+            <option>Surgery</option>
+            <option>Follow-up</option>
+            <option>Grooming</option>
+            <option>Emergency</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="full">
+          <label>Notes</label>
+          <textarea id="apptNotes"></textarea>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+
+        <button class="btn btn-primary" type="submit">
+          Save Appointment
+        </button>
+
+        <button
+          class="btn btn-light"
+          type="button"
+          onclick="closeModal('apptModal')"
+        >
+          Cancel
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- ================= MEDICAL RECORD MODAL ================= -->
+
+<div class="modal" id="recordModal">
+
+  <div class="modal-box">
+
+    <div class="modal-head">
+      <h2>🩺 Medical Record</h2>
+      <button class="close" onclick="closeModal('recordModal')">×</button>
+    </div>
+
+    <form onsubmit="addRecord(event)">
+
+      <div class="form-grid">
+
+        <div>
+          <label>Pet</label>
+          <select id="recordPet" required></select>
+        </div>
+
+        <div>
+          <label>Date</label>
+          <input id="recordDate" type="date" required>
+        </div>
+
+        <div class="full">
+          <label>Chief Complaint</label>
+          <input id="recordComplaint">
+        </div>
+
+        <div class="full">
+          <label>Clinical Examination</label>
+          <textarea id="recordExam"></textarea>
+        </div>
+
+        <div class="full">
+          <label>Diagnosis</label>
+          <textarea id="recordDiagnosis"></textarea>
+        </div>
+
+        <div class="full">
+          <label>Treatment</label>
+          <textarea id="recordTreatment"></textarea>
+        </div>
+
+        <div class="full">
+          <label>Notes</label>
+          <textarea id="recordNotes"></textarea>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+
+        <button class="btn btn-primary" type="submit">
+          Save Record
+        </button>
+
+        <button
+          class="btn btn-light"
+          type="button"
+          onclick="closeModal('recordModal')"
+        >
+          Cancel
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+const KEY="cliniPetDB_v2";
+
+
+let db=JSON.parse(
+  localStorage.getItem(KEY) ||
+  '{"pets":[],"vaccines":[],"appointments":[],"records":[]}'
+);
+
+
+function save(){
+  localStorage.setItem(KEY,JSON.stringify(db));
+}
+
+
+function uid(){
+  return Date.now().toString(36)+Math.random()
+    .toString(36).substring(2,8);
+}
+
+
+function toast(message){
+
+  const t=document.getElementById("toast");
+
+  t.textContent=message;
+  t.classList.add("show");
+
+  setTimeout(()=>{
+    t.classList.remove("show");
+  },2200);
+}
+
+
+function openModal(id){
+
+  updatePetSelects();
+
+  document.getElementById(id).classList.add("show");
+
+}
+
+
+function closeModal(id){
+
+  document.getElementById(id).classList.remove("show");
+
+}
+
+
+function go(section,button){
+
+  document.querySelectorAll(".section")
+    .forEach(x=>x.classList.remove("active"));
+
+  document.getElementById(section)
+    .classList.add("active");
+
+  document.querySelectorAll("nav button")
+    .forEach(x=>x.classList.remove("active"));
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  renderAll();
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+function formatDate(date){
+
+  if(!date) return "-";
+
+  return new Date(date+"T00:00:00")
+    .toLocaleDateString("en-GB");
+
+}
+
+
+function daysFromToday(date){
+
+  const d=new Date(date+"T00:00:00");
+
+  const now=new Date();
+
+  now.setHours(0,0,0,0);
+
+  return Math.round(
+    (d-now)/86400000
+  );
+
+}
+
+
+/* ================= PETS ================= */
+
+
+function addPet(e){
+
+  e.preventDefault();
+
+  const pet={
+
+    id:uid(),
+
+    name:document.getElementById("petName").value.trim(),
+
+    species:document.getElementById("petSpecies").value,
+
+    breed:document.getElementById("petBreed").value.trim(),
+
+    sex:document.getElementById("petSex").value,
+
+    age:document.getElementById("petAge").value.trim(),
+
+    weight:document.getElementById("petWeight").value,
+
+    owner:document.getElementById("ownerName").value.trim(),
+
+    phone:document.getElementById("ownerPhone").value.trim(),
+
+    notes:document.getElementById("petNotes").value.trim(),
+
+    created:new Date().toISOString()
+
+  };
+
+
+  db.pets.push(pet);
+
+  save();
+
+  e.target.reset();
+
+  closeModal("petModal");
+
+  renderAll();
+
+  toast("تم إضافة الحيوان بنجاح ✅");
+
+}
+
+
+function renderPets(){
+
+  const list=document.getElementById("petsList");
+
+  const q=(document.getElementById("petSearch")?.value||"")
+    .toLowerCase();
+
+  const pets=db.pets.filter(p=>
+
+    p.name.toLowerCase().includes(q) ||
+
+    p.owner.toLowerCase().includes(q) ||
+
+    p.phone.toLowerCase().includes(q)
+
+  );
+
+
+  if(!pets.length){
+
+    list.innerHTML=
+      '<div class="empty">لا توجد بيانات حيوانات.</div>';
+
+    return;
+
+  }
+
+
+  list.innerHTML=pets.map(p=>`
+
+    <div class="item">
+
+      <div class="item-head">
+
+        <h3>
+          ${escapeHTML(p.name)}
+        </h3>
+
+        <span class="badge">
+          ${escapeHTML(p.species)}
+        </span>
+
+      </div>
+
+      <div class="meta">
+
+        🧬 Breed:
+        ${escapeHTML(p.breed||"-")}
+        <br>
+
+        ⚥ Sex:
+        ${escapeHTML(p.sex||"-")}
+        <br>
+
+        ⚖️ Weight:
+        ${escapeHTML(p.weight||"-")} kg
+        <br>
+
+        👤 Owner:
+        ${escapeHTML(p.owner)}
+        <br>
+
+        📞 Phone:
+        ${escapeHTML(p.phone||"-")}
+
+      </div>
+
+      ${
+        p.notes
+        ? `<div class="meta">📝 ${escapeHTML(p.notes)}</div>`
+        :""
+      }
+
+      <div class="actions">
+
+        <button
+          class="btn btn-light small"
+          onclick="petHistory('${p.id}')">
+          🩺 History
+        </button>
+
+        <button
+          class="btn btn-danger small"
+          onclick="del('pets','${p.id}')">
+          Delete
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
+
+}
+
+
+function petHistory(id){
+
+  const pet=db.pets.find(p=>p.id===id);
+
+  if(!pet)return;
+
+  const vaccines=db.vaccines
+    .filter(v=>v.petId===id);
+
+  const records=db.records
+    .filter(r=>r.petId===id);
+
+  let html=`
+
+    <h2>🩺 ${escapeHTML(pet.name)}</h2>
+
+    <p class="meta">
+      ${escapeHTML(pet.species)}
+      -
+      ${escapeHTML(pet.breed||"-")}
+      -
+      ${escapeHTML(pet.owner)}
+    </p>
+
+    <hr>
+
+    <h3>💉 Vaccines</h3>
+
+  `;
+
+
+  if(!vaccines.length){
+
+    html+="<p class='meta'>No vaccines.</p>";
+
+  }else{
+
+    vaccines.forEach(v=>{
+
+      html+=`
+
+        <<div class="card metric"><span>Appointments</span><b id="apptCount">0</b></div>
 </div>
 <div class="quick">
 <button onclick="openForm('pet')">＋ Add Pet</button><button onclick="openForm('vaccine')">💉 Vaccine</button>
